@@ -42,6 +42,25 @@ services:
     networks:
       - hyperespace-network
 
+  php_bot:
+    build:
+      args:
+        VERSION: $PHP_VERSION
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+      target: dev
+    command:
+      - 'php'
+      - 'bin/console'
+      - 'bot:run'
+    volumes:
+      - .:/hyperespace
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - hyperespace-network
+
   postgres:
     image: postgres:14.1-alpine
     environment:
