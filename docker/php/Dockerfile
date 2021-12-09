@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual dev-deps git; \
 		zlib-dev \
 		libzip-dev \
 		postgresql-dev \
-    	gmp-dev \
+        libpng-dev \
 	; \
     pecl install pcov; \
     docker-php-ext-enable pcov; \
@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual dev-deps git; \
 		pdo_pgsql \
 		zip \
     	opcache \
-    	gpm \
+    	gd \
 	; \
 	runDeps="$( \
 		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
