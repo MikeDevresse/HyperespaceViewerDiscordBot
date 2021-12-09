@@ -18,9 +18,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class BotRegisterCommand extends Command
 {
-    private string $botPublicKey;
     private string $botToken;
-    private HttpClientInterface $httpClient;
 
     public function __construct(string $botPublicKey, string $botToken, HttpClientInterface $httpClient)
     {
@@ -34,12 +32,9 @@ class BotRegisterCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $slashClient = new RegisterClient($this->botToken);
-        $slashClient->createGlobalCommand('top', 'Envoie le top des étudiants (trié par la moyenne des domaines)',[
-            ['name'=>'page','required'=>false,'type'=>4,'description'=>'Numéro de la page'],
-            ['name'=>'per_page','required'=>false,'type'=>4,'description'=>'Nombre d\'éléments par page']
-        ]);
+
         $slashClient->createGlobalCommand('notes', 'Récupère les notes à partir de l\'identifiant donné',[
-            ['name'=>'identifiants','required'=>true,'description'=>'Identifiant séparés d\'un ; ex: 20170673;20172427','type'=>3],
+            ['name'=>'identifiant','required'=>true,'description'=>'Identifiant de l\'étudiant ex: dm170673','type'=>3],
         ]);
         return Command::SUCCESS;
     }
